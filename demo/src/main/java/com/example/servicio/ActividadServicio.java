@@ -1,5 +1,7 @@
 package com.example.servicio;
 
-public interface ActividadServicio {
+import com.example.modelo.Actividad;
 
+public interface ActividadServicio {
+    public Actividad registrarActividad();
 }

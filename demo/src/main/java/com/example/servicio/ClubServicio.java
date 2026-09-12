@@ -1,5 +1,7 @@
 package com.example.servicio;
 
-public interface ClubServicio {
+import com.example.modelo.Club;
 
+public interface ClubServicio {
+    public Club registrarClub();
 }
