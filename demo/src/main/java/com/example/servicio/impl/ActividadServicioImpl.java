@@ -2,6 +2,7 @@ package com.example.servicio.impl;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.example.modelo.Actividad;
@@ -14,20 +15,20 @@ public class ActividadServicioImpl implements ActividadServicio {
         Scanner sc = new Scanner(System.in);
         Actividad actividad = new Actividad();
 
-
+        System.out.print("ingrese su nombre: ");
         String nombre = sc.nextLine();
         actividad.setNombre(nombre);
-
+        System.out.print("Ingrese el cupo: ");
         int cupo = sc.nextInt();
         actividad.setCupo(cupo);
 
-        sc.nextLine();
-
+        
+        System.out.print("Esta disponible: ");
         boolean disponible = sc.nextBoolean();
         actividad.setDisponible(disponible);
 
         LocalDate fechaIni = null;
-        
+        System.out.print("Ingrese la fecha: ");
         String fechaStr = sc.nextLine();
         fechaIni = LocalDate.parse(fechaStr,FORMATTER);
 
@@ -37,4 +38,8 @@ public class ActividadServicioImpl implements ActividadServicio {
 
         return actividad;
     }
+    public void guardarActividad(Actividad actividad, ArrayList<Actividad>listactividad){
+        listactividad.add(actividad);
+    }
+
 }

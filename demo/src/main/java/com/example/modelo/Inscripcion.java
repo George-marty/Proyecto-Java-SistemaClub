@@ -24,6 +24,40 @@ public class Inscripcion {
         this.fechaInscripcion = fechaInscripcion;
     }
 
+    
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Socio getSocio() {
+        return socio;
+    }
+
+    public void setSocio(Socio socio) {
+        this.socio = socio;
+    }
+
+    public Actividad getActividad() {
+        return actividad;
+    }
+
+    public void setActividad(Actividad actividad) {
+        this.actividad = actividad;
+    }
+
+    public LocalDate getFechaInscripcion() {
+        return fechaInscripcion;
+    }
+
+    public void setFechaInscripcion(LocalDate fechaInscripcion) {
+        this.fechaInscripcion = fechaInscripcion;
+    }
+
     @Override
     public String toString() {
         return "Inscripcion [id=" + id + ", socio=" + socio + ", actividad=" + actividad + ", fecha_inscripcion="
