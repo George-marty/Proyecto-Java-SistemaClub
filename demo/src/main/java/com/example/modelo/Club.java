@@ -13,30 +13,30 @@ public class Club {
     private boolean activo;
     private LocalDate fechaFundacion;
     private String direccion;
-    private String email_contacto;
+    private String emailContacto;
 
     public Club() {
     }
 
     public Club(String nombre, int socios, boolean activo, LocalDate fechaFundacion, String direccion,
-            String email_contacto) {
+            String emailContacto) {
         this.nombre = nombre;
         this.socios = socios;
         this.activo = activo;
         this.fechaFundacion = fechaFundacion;
         this.direccion = direccion;
-        this.email_contacto = email_contacto;
+        this.emailContacto = emailContacto;
     }
 
     public Club(int id, String nombre, int socios, boolean activo, LocalDate fechaFundacion, String direccion,
-            String email_contacto) {
+            String emailContacto) {
         this.id = id;
         this.nombre = nombre;
         this.socios = socios;
         this.activo = activo;
         this.fechaFundacion = fechaFundacion;
         this.direccion = direccion;
-        this.email_contacto = email_contacto;
+        this.emailContacto = emailContacto;
     }
 
     public int getId() {
@@ -87,20 +87,22 @@ public class Club {
         this.direccion = direccion;
     }
 
-    public String getEmail_contacto() {
-        return email_contacto;
+    public String getEmailContacto() {
+        return emailContacto;
     }
 
-    public void setEmail_contacto(String email_contacto) {
-        this.email_contacto = email_contacto;
+    public void setEmail_contacto(String emailContacto) {
+        this.emailContacto = emailContacto;
     }
 
     @Override
     public String toString() {
         return "Club [id=" + id + ", nombre=" + nombre + ", socios=" + socios + ", activo=" + activo
-                + ", fechaFundacion=" + fechaFundacion + ", direccion=" + direccion + ", email_contacto="
-                + email_contacto + "]";
+                + ", fechaFundacion=" + fechaFundacion + ", direccion=" + direccion + ", emailContacto=" + emailContacto
+                + "]";
     }
+
+    
 
     
 
