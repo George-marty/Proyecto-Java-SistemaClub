@@ -7,36 +7,44 @@ activo (boolean), fechaFundacion (LocalDate)
 import java.time.LocalDate;
 
 public class Club {
-    private int idClub;
+    private int id;
     private String nombre;
     private int socios;
     private boolean activo;
     private LocalDate fechaFundacion;
+    private String direccion;
+    private String email_contacto;
 
     public Club() {
     }
 
-    public Club(String nombre, int socios, boolean activo, LocalDate fechaFundacion) {
+    public Club(String nombre, int socios, boolean activo, LocalDate fechaFundacion, String direccion,
+            String email_contacto) {
         this.nombre = nombre;
         this.socios = socios;
         this.activo = activo;
         this.fechaFundacion = fechaFundacion;
+        this.direccion = direccion;
+        this.email_contacto = email_contacto;
     }
 
-    public Club(int idClub, String nombre, int socios, boolean activo, LocalDate fechaFundacion) {
-        this.idClub = idClub;
+    public Club(int id, String nombre, int socios, boolean activo, LocalDate fechaFundacion, String direccion,
+            String email_contacto) {
+        this.id = id;
         this.nombre = nombre;
         this.socios = socios;
         this.activo = activo;
         this.fechaFundacion = fechaFundacion;
+        this.direccion = direccion;
+        this.email_contacto = email_contacto;
     }
 
-    public int getIdClub() {
-        return idClub;
+    public int getId() {
+        return id;
     }
 
-    public void setIdClub(int idClub) {
-        this.idClub = idClub;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombre() {
@@ -71,11 +79,30 @@ public class Club {
         this.fechaFundacion = fechaFundacion;
     }
 
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public String getEmail_contacto() {
+        return email_contacto;
+    }
+
+    public void setEmail_contacto(String email_contacto) {
+        this.email_contacto = email_contacto;
+    }
+
     @Override
     public String toString() {
-        return "Club [idClub=" + idClub + ", nombre=" + nombre + ", socios=" + socios + ", activo=" + activo
-                + ", fechaFundacion=" + fechaFundacion + "]";
+        return "Club [id=" + id + ", nombre=" + nombre + ", socios=" + socios + ", activo=" + activo
+                + ", fechaFundacion=" + fechaFundacion + ", direccion=" + direccion + ", email_contacto="
+                + email_contacto + "]";
     }
+
+    
 
     
 
