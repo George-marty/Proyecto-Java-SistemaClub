@@ -2,5 +2,5 @@
 *.log
 *.jar
 
-tarjet/
+target/
 .vscode/
