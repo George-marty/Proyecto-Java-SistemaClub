@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.example.DAO.ClubDAO;
 import com.example.modelo.Club;
 import com.example.servicio.ClubServicio;
 
@@ -57,6 +58,8 @@ public class ClubServicioImpl implements ClubServicio{
 
     @Override 
     public void guardarClub(Club club, ArrayList<Club> listaClub){
+        int id = new ClubDAO().insertClub(club);
+        club.setId(id);
         listaClub.add(club);
         
     }
