@@ -12,7 +12,6 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import com.example.DAO.UsuarioDAO;
 import com.example.modelo.Usuario;
 import com.example.servicio.UsuarioServicio;
 import com.example.servicio.impl.UsuarioServicioImpl;

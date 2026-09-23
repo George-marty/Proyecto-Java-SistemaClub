@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import javax.swing.SwingUtilities;
 
 import com.example.DAO.ClubDAO;
+import com.example.gui.LoginFrame;
 
-import com.example.gui.RegisterFrame;
 import com.example.modelo.Actividad;
 import com.example.modelo.Club;
 import com.example.modelo.Inscripcion;
@@ -24,12 +24,21 @@ public class Main {
         ClubDAO clubDAO = new ClubDAO();
         listaClub.addAll(clubDAO.obtenerClub());
         
-        
-         SwingUtilities.invokeLater(()-> {
+        SwingUtilities.invokeLater(() -> {
+
+            //MainFrame ventana = new MainFrame();
+            LoginFrame ventana = new LoginFrame();  
+
+            ventana.setVisible(true);
+        });
+
+
+
+         /*SwingUtilities.invokeLater(()-> {
             RegisterFrame ventana = new RegisterFrame();
             ventana.setVisible(true);
         }
-    );
+    );*/
         
         
         
