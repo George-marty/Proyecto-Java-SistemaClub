@@ -3,7 +3,7 @@ package com.example.gui;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import javax.swing.SwingUtilities;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -95,8 +95,14 @@ public class MainFrame extends JFrame {
         btnSalir.addActionListener(e-> salir());
     }
     private void salir(){
-        System.out.println("Saliendo del sistema...");
-            System.exit(0);
+         SwingUtilities.invokeLater(() -> {
+
+            //MainFrame ventana = new MainFrame();
+            LoginFrame ventana = new LoginFrame();  
+
+            ventana.setVisible(true);
+            this.dispose();
+        });
 
     }
 

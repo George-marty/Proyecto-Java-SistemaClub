@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 import com.example.modelo.Usuario;
 import com.example.servicio.UsuarioServicio;
@@ -30,14 +31,18 @@ public class RegisterFrame extends JFrame {
         JLabel lblClave = new JLabel("Clave", SwingConstants.CENTER);
         JPasswordField txtClave = new JPasswordField();
         JButton btnIngresar = new JButton("Registrarse");
+        JButton btnSalir = new JButton("Salir");
 
         panel.add(lblUsuario);
         panel.add(txtUsuario);
         panel.add(lblClave);
         panel.add(txtClave);
         panel.add(btnIngresar);
+        panel.add(btnSalir);
 
         add(panel, BorderLayout.CENTER);
+
+        btnSalir.addActionListener(e -> salir());
 
         btnIngresar.addActionListener(e -> {
             String usuario = txtUsuario.getText();
@@ -61,6 +66,17 @@ public class RegisterFrame extends JFrame {
                 JOptionPane.showMessageDialog(this, "Usuario o clave incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+    }
+    private void salir(){
+         SwingUtilities.invokeLater(() -> {
+
+            //MainFrame ventana = new MainFrame();
+            LoginFrame ventana = new LoginFrame();  
+
+            ventana.setVisible(true);
+            this.dispose();
+        });
+
     }
 
 }
