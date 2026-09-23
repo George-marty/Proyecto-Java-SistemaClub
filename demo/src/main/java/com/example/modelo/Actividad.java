@@ -11,23 +11,23 @@ public class Actividad {
     private int cupo;
     private boolean disponible;
     private LocalDate fechaInicio;
-    private Club club;
+    
     public Actividad() {
     }
-    public Actividad(String nombre, int cupo, boolean disponible, LocalDate fechaInicio, Club club) {
+    public Actividad(String nombre, int cupo, boolean disponible, LocalDate fechaInicio) {
         this.nombre = nombre;
         this.cupo = cupo;
         this.disponible = disponible;
         this.fechaInicio = fechaInicio;
-        this.club = club;
+        
     }
-    public Actividad(int id, String nombre, int cupo, boolean disponible, LocalDate fechaInicio, Club club) {
+    public Actividad(int id, String nombre, int cupo, boolean disponible, LocalDate fechaInicio) {
         this.id = id;
         this.nombre = nombre;
         this.cupo = cupo;
         this.disponible = disponible;
         this.fechaInicio = fechaInicio;
-        this.club = club;
+       
     }
     public int getId() {
         return id;
@@ -59,16 +59,11 @@ public class Actividad {
     public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-    public Club getClub() {
-        return club;
-    }
-    public void setClub(Club club) {
-        this.club = club;
-    }
+   
     @Override
     public String toString() {
         return "Actividad [id=" + id + ", nombre=" + nombre + ", cupo=" + cupo + ", disponible="
-                + disponible + ", fechaInicio=" + fechaInicio + ", club=" + club + "]";
+                + disponible + ", fechaInicio=" + fechaInicio + "]";
     }
 
     

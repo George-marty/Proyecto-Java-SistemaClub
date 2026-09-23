@@ -4,9 +4,28 @@ import com.example.control.ConectarBase;
 import com.example.modelo.Usuario;
 
 public class UsuarioDAO {
-    public Usuario registrarUsuario(){
-        Usuario usuario = new Usuario();
-        return usuario;
+    public int insertarUsuario(Usuario usuario){
+        
+        int id = 0;
+        String sql = "INSERT INTO usuario (username,password_hash) VALUES (?,?)";
+        try (var conexion = new ConectarBase().conectar();
+            var preparedStatement = conexion.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)){
+                preparedStatement.setString(1, usuario.getUsername());
+                preparedStatement.setString(2, usuario.getPasswordHash());
+
+                int affectedRows = preparedStatement.executeUpdate();
+
+                if (affectedRows > 0){
+                    try (var generatedKeys = preparedStatement.getGeneratedKeys()){
+                        if (generatedKeys.next()){
+                            id = generatedKeys.getInt(1);
+                        }
+                    }
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        return id;
     }
     
     
