@@ -33,33 +33,30 @@ public class MainFrame extends JFrame {
 
     }
     public void construirModuloClub() {
-        JButton btnRegistrarCli = new JButton("Registrar Club");
-        JButton btnListarCli = new JButton("Listar Club");
+        JButton btnClubCli = new JButton("Club");
+        
         
 
-        panelBotones.add(btnRegistrarCli);
-        panelBotones.add(btnListarCli);
+        panelBotones.add(btnClubCli);
+        
      
 
-        btnRegistrarCli.addActionListener(e -> registrarClub());
-        btnListarCli.addActionListener(e -> listarClub());
+        btnClubCli.addActionListener(e -> administradorClub());
+        
 
         
         
 
     }
-    private void registrarClub() {
-        ClubFrame ventanaCluFrame = new ClubFrame();
-        ventanaCluFrame.setVisible(true);
+    private void administradorClub() {
+        AdministradorClub administradorClub = new AdministradorClub();
+        administradorClub.setVisible(true);
+        
         this.dispose();
 
     }
 
-    private void listarClub() {
-        ListadoClubFrame listadoClubFrame = new ListadoClubFrame();
-        listadoClubFrame.setVisible(true);
-        this.dispose();
-    }
+   
 
     private void construirModuloActividad() {
         JButton btnRegistrarAct = new JButton("Registrar Actividad");

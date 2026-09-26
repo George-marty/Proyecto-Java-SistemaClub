@@ -64,7 +64,7 @@ public class BorrarClubFrame extends JFrame{
 
     private void volver() {
         this.dispose();
-        ListadoClubFrame listadoClubFrame = new ListadoClubFrame();
+        AdministradorClub listadoClubFrame = new AdministradorClub();
         listadoClubFrame.setVisible(true); // Abre la ventana principal
     }
 

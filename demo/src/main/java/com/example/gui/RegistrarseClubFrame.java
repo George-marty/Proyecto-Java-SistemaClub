@@ -28,7 +28,7 @@ import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class ClubFrame extends JFrame {
+public class RegistrarseClubFrame extends JFrame {
     private JTextField txtNombre;
     private JTextField txtSocios;
     private JTextField txtActivo;
@@ -39,7 +39,7 @@ public class ClubFrame extends JFrame {
     private JButton btnGuardar;
     private JButton btnVolver;
 
-    public ClubFrame() {
+    public RegistrarseClubFrame() {
         configurarVentana();
         inicializarComponentes();
     }
@@ -101,10 +101,11 @@ public class ClubFrame extends JFrame {
     private void volver() {
 
         this.dispose();
-
-        MainFrame ventanaPrincipal = new MainFrame();
-        ventanaPrincipal.setVisible(true);
+        AdministradorClub  administradorClub = new AdministradorClub();
+        
+        administradorClub.setVisible(true);
     }
+
     private void guardarClub(){
         String nombre = txtNombre.getText().trim();
         int socios = Integer.parseInt(txtSocios.getText().trim());

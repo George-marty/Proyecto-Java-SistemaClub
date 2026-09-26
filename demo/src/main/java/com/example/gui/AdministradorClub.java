@@ -12,11 +12,13 @@ import java.awt.BorderLayout;
 import com.example.DAO.ClubDAO;
 import com.example.modelo.Club;
 
-public class ListadoClubFrame extends JFrame{
+public class AdministradorClub extends JFrame{
     private JButton btnVolver;
     private JButton btnBorrar;
+    private JButton btnRegistrarse;
+    private JButton btnModificar;
 
-    public ListadoClubFrame(){
+    public AdministradorClub(){
         configurarVentana();
         inicializarComponentes();
     }
@@ -42,20 +44,27 @@ public class ListadoClubFrame extends JFrame{
 
         btnVolver = new JButton("volver");
         btnBorrar = new JButton("Borrar");
+        btnRegistrarse = new JButton("Registrarse");
+        btnModificar = new JButton("Modificar");
 
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         panelPrincipal.add(scroll, BorderLayout.CENTER);
         panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
-        panelBotones.add(btnVolver);
+        panelBotones.add(btnRegistrarse);
+        panelBotones.add(btnModificar);
         panelBotones.add(btnBorrar);
+        panelBotones.add(btnVolver);
+        
+        
+        
         add(panelPrincipal, BorderLayout.CENTER);
        
-        btnVolver.addActionListener(e -> {
-            volver();
-        });
+        btnVolver.addActionListener(e -> {volver();});
 
         btnBorrar.addActionListener(e -> {borrar();});
         
+        btnRegistrarse.addActionListener(e -> {registrarse();});
+        btnModificar.addActionListener(e -> {modificarClub();});
 
     }
     private void volver() {
@@ -68,5 +77,17 @@ public class ListadoClubFrame extends JFrame{
         BorrarClubFrame borrarClubFrame = new BorrarClubFrame();
         borrarClubFrame.setVisible(true);
     }
+    private void registrarse(){
+        this.dispose();
+        RegistrarseClubFrame registrarseClubFrame = new RegistrarseClubFrame();
+        registrarseClubFrame.setVisible(true);
+        
+    }
+    private void modificarClub(){
+        this.dispose();
+        ModificarClubFrame modificarClubFrame = new ModificarClubFrame();
+        modificarClubFrame.setVisible(true);
+    }
+
 
 }

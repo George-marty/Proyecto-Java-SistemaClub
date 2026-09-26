@@ -36,7 +36,7 @@ public class ClubDAO {
     }
 
     public boolean modificarClub(Club club){
-        String sql = "UPDATE club set nombre = ?,socio = ?, activo = ?, fecha_fundacion = ?, direccion = ?, email_contacto = ? WHERE id = ?";
+        String sql = "UPDATE club set nombre = ?,socios = ?, activo = ?, fecha_fundacion = ?, direccion = ?, email_contacto = ? WHERE id = ?";
         try (var conexion = new ConectarBase().conectar();
         var preparedStatement = conexion.prepareStatement(sql)){
             preparedStatement.setString(1, club.getNombre());
@@ -45,7 +45,7 @@ public class ClubDAO {
             preparedStatement.setDate(4, java.sql.Date.valueOf(club.getFechaFundacion()));
             preparedStatement.setString(5, club.getDireccion());
             preparedStatement.setString(6, club.getEmailContacto());
-
+            preparedStatement.setInt(7, club.getId());
             int affectedRows = preparedStatement.executeUpdate();
             return affectedRows > 0;
 
