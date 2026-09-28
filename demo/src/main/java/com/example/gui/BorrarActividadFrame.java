@@ -1,32 +1,32 @@
 package com.example.gui;
 
+import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import com.example.DAO.ClubDAO;
+import com.example.DAO.ActividadDAO;
 
 
-public class BorrarClubFrame extends JFrame{
-    // Declaración de componentes 
+public class BorrarActividadFrame extends  JFrame{
     private JTextField id;
     private JButton btnBorrar;
     private JButton btnVolver;
 
-    public BorrarClubFrame() {
+    public BorrarActividadFrame() {
         configurarVentana();
         inicializarComponentes();
     }
 
     private void configurarVentana() {
-        setTitle("Borrar Cliente");
+        setTitle("Borrar Actividad");
         setSize(400, 200);
         //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -38,13 +38,14 @@ public class BorrarClubFrame extends JFrame{
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
         JPanel panelFormulario = new JPanel(new GridLayout(1, 2, 20, 25));
-        panelFormulario.add(new JLabel("Ingrese Id Club a Borrar:", SwingConstants.CENTER));
+        panelFormulario.add(new JLabel("Ingrese Id Actividad a Borrar:", SwingConstants.CENTER));
         // El JTextField para el nombre
         id = new JTextField();
         panelFormulario.add(id);
 
-        btnVolver = new JButton("Volver");
         btnBorrar = new JButton("Borrar");
+        btnVolver = new JButton("Volver");
+        
 
         JPanel panelBotones = new JPanel();
         panelBotones.add(btnVolver);
@@ -56,7 +57,7 @@ public class BorrarClubFrame extends JFrame{
         add(panelPrincipal);
 
         // Aqui declaro los eventos de los botones 
-        btnBorrar.addActionListener(e -> { borrarClub(); });
+        btnBorrar.addActionListener(e -> { borrarActividad(); });
 
         btnVolver.addActionListener(e -> { volver(); });
 
@@ -64,14 +65,15 @@ public class BorrarClubFrame extends JFrame{
 
     private void volver() {
         this.dispose();
-        AdministradorClubFrame listadoClubFrame = new AdministradorClubFrame();
-        listadoClubFrame.setVisible(true); // Abre la ventana principal
+        AdministradorActividadFrame administradorActividadFrame = new AdministradorActividadFrame();
+        administradorActividadFrame.setVisible(true);
+        
     }
 
-    private void borrarClub() {
+    private void borrarActividad() {
 
         if (id.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese el ID del Club a borrar.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ingrese el ID del Actividad a borrar.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             } else {
                 try {
@@ -89,16 +91,16 @@ public class BorrarClubFrame extends JFrame{
             boolean borrado;
             try {
                 
-                borrado = ClubDAO.borrarClub(idCliBorrar);
+                borrado = ActividadDAO.borrarActividad(idCliBorrar);
                 if (borrado) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Cliente con ID " + idCliBorrar + " borrado correctamente.");
+                javax.swing.JOptionPane.showMessageDialog(this, "Actividad con ID " + idCliBorrar + " borrado correctamente.");
                 id.setText(""); // Limpiar el campo de texto después de borrar
                     } else {
                         javax.swing.JOptionPane.showMessageDialog(this, "No se pudo borrar el cliente. Verifique el ID.");
                         }
                 } catch (Exception e) {
                 // Si el método lanza una excepción, la capturamos y mostramos un mensaje de error
-                    JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar borrar el cliente");
+                    JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar borrar la Actividad");
                     e.printStackTrace();
                     }
                 

@@ -49,7 +49,7 @@ public class MainFrame extends JFrame {
 
     }
     private void administradorClub() {
-        AdministradorClub administradorClub = new AdministradorClub();
+        AdministradorClubFrame administradorClub = new AdministradorClubFrame();
         administradorClub.setVisible(true);
         
         this.dispose();
@@ -59,30 +59,26 @@ public class MainFrame extends JFrame {
    
 
     private void construirModuloActividad() {
-        JButton btnRegistrarAct = new JButton("Registrar Actividad");
-        JButton btnListarAct = new JButton("Listar Actividad");
+        JButton btnActividadAct = new JButton("Actividad");
+        
         
 
-        panelBotones.add(btnRegistrarAct);
-        panelBotones.add(btnListarAct);
+        panelBotones.add(btnActividadAct);
+      
        
 
-        btnRegistrarAct.addActionListener(e -> registrarActividad());
-        btnListarAct.addActionListener(e-> listarActividad());
+        btnActividadAct.addActionListener(e -> administradorActividad());
+       
        
     }
 
-    private void registrarActividad(){
-        ActividadFrame ventanaActFrame = new ActividadFrame();
-            ventanaActFrame.setVisible(true);
-            this.dispose();
+    private void administradorActividad(){
+        AdministradorActividadFrame administradorActividad = new AdministradorActividadFrame();
+        administradorActividad.setVisible(true);
+        this.dispose();
 
     }
-    private void listarActividad(){
-        ListadoActividadFrame listadoActividadFrame = new ListadoActividadFrame();
-            listadoActividadFrame.setVisible(true);
-            this.dispose();
-    }
+    
 
     private void construirModuloSistema() {
         JButton btnSalir = new JButton("Salir");

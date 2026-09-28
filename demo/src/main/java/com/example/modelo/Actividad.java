@@ -11,22 +11,25 @@ public class Actividad {
     private int cupo;
     private boolean disponible;
     private LocalDate fechaInicio;
+    private String descripcion;
     
     public Actividad() {
     }
-    public Actividad(String nombre, int cupo, boolean disponible, LocalDate fechaInicio) {
+    public Actividad(String nombre, int cupo, boolean disponible, LocalDate fechaInicio,String descripcion) {
         this.nombre = nombre;
         this.cupo = cupo;
         this.disponible = disponible;
         this.fechaInicio = fechaInicio;
+        this.descripcion = descripcion;
         
     }
-    public Actividad(int id, String nombre, int cupo, boolean disponible, LocalDate fechaInicio) {
+    public Actividad(int id, String nombre, int cupo, boolean disponible, LocalDate fechaInicio,String descripcion) {
         this.id = id;
         this.nombre = nombre;
         this.cupo = cupo;
         this.disponible = disponible;
         this.fechaInicio = fechaInicio;
+        this.descripcion = descripcion;
        
     }
     public int getId() {
@@ -59,12 +62,20 @@ public class Actividad {
     public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
-   
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
     @Override
     public String toString() {
-        return "Actividad [id=" + id + ", nombre=" + nombre + ", cupo=" + cupo + ", disponible="
-                + disponible + ", fechaInicio=" + fechaInicio + "]";
+        return "Actividad [id=" + id + ", nombre=" + nombre + ", cupo=" + cupo + ", disponible=" + disponible
+                + ", fechaInicio=" + fechaInicio + ", descripcion=" + descripcion + "]";
     }
+   
+    
+    
 
     
 

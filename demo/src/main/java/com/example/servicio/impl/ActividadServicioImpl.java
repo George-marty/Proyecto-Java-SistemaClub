@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.example.DAO.ActividadDAO;
 import com.example.modelo.Actividad;
 import com.example.servicio.ActividadServicio;
 
@@ -38,8 +39,10 @@ public class ActividadServicioImpl implements ActividadServicio {
 
         return actividad;
     }
-    public void guardarActividad(Actividad actividad, ArrayList<Actividad>listactividad){
-        listactividad.add(actividad);
+    public void guardarActividad(Actividad actividad, ArrayList<Actividad>listaActividad){
+        int id = new ActividadDAO().insertActividad(actividad);
+        actividad.setId(id);
+        listaActividad.add(actividad);
     }
 
 }

@@ -1,5 +1,8 @@
 package com.example.gui;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -7,20 +10,26 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.example.DAO.ClubDAO;
-import com.example.modelo.Club;
+import com.example.DAO.ActividadDAO;
+
+import com.example.modelo.Actividad;
 
 import java.awt.BorderLayout;
 
 import java.awt.GridLayout;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-public class ModificarClubFrame extends JFrame {
-    private JTextField txtId, txtNombre, txtSocios, txtActivo, txtFechaFundacion, txtDireccion, txtEmailContacto;
-    private JButton btnActualizar, btnVolver;
 
-    public ModificarClubFrame() {
+public class ModificarActividadFrame extends JFrame {
+    private JTextField txtId;
+    private JTextField txtNombre; 
+    private JTextField txtCupos;
+    private JTextField txtDisponible;
+    private JTextField txtFechaInicio;
+    private JTextField txtDescripcion;
+    private JButton btnActualizar;
+    private JButton btnVolver;
+
+    public ModificarActividadFrame() {
         configurarVentana();
         inicializarComponentes();
     }
@@ -35,7 +44,7 @@ public class ModificarClubFrame extends JFrame {
     private void inicializarComponentes() {
         JPanel panelFormulario = new JPanel(new GridLayout(7, 2, 10, 10));
 
-        panelFormulario.add(new JLabel("ID del Club:"));
+        panelFormulario.add(new JLabel("ID de la Actividad:"));
         txtId = new JTextField();
         panelFormulario.add(txtId);
 
@@ -43,25 +52,23 @@ public class ModificarClubFrame extends JFrame {
         txtNombre = new JTextField();
         panelFormulario.add(txtNombre);
 
-        panelFormulario.add(new JLabel("Socios:"));
-        txtSocios = new JTextField();
-        panelFormulario.add(txtSocios);
+        panelFormulario.add(new JLabel("Cupo:"));
+        txtCupos = new JTextField();
+        panelFormulario.add(txtCupos);
 
-        panelFormulario.add(new JLabel("Activo (true/false):"));
-        txtActivo = new JTextField();
-        panelFormulario.add(txtActivo);
+        panelFormulario.add(new JLabel("Disponible (true/false):"));
+        txtDisponible = new JTextField();
+        panelFormulario.add(txtDisponible);
 
         panelFormulario.add(new JLabel("Fecha (dd/MM/yyyy):"));
-        txtFechaFundacion = new JTextField();
-        panelFormulario.add(txtFechaFundacion);
+        txtFechaInicio = new JTextField();
+        panelFormulario.add(txtFechaInicio);
 
-        panelFormulario.add(new JLabel("Dirección:"));
-        txtDireccion = new JTextField();
-        panelFormulario.add(txtDireccion);
+        panelFormulario.add(new JLabel("Descripcion:"));
+        txtDescripcion = new JTextField();
+        panelFormulario.add(txtDescripcion);
 
-        panelFormulario.add(new JLabel("Email:"));
-        txtEmailContacto = new JTextField();
-        panelFormulario.add(txtEmailContacto);
+       
 
         btnActualizar = new JButton("Actualizar");
         btnVolver = new JButton("Volver");
@@ -80,37 +87,38 @@ public class ModificarClubFrame extends JFrame {
 
     private void actualizarClub() {
     if (txtId.getText().trim().isEmpty() || txtNombre.getText().trim().isEmpty() ||
-        txtSocios.getText().trim().isEmpty() || txtActivo.getText().trim().isEmpty() ||
-        txtFechaFundacion.getText().trim().isEmpty() || txtDireccion.getText().trim().isEmpty() ||
-        txtEmailContacto.getText().trim().isEmpty()) {
+        txtCupos.getText().trim().isEmpty() || txtDisponible.getText().trim().isEmpty() ||
+        txtFechaInicio.getText().trim().isEmpty() || txtDescripcion.getText().trim().isEmpty()) {
         JOptionPane.showMessageDialog(this, "Complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
     int id;
-    int socios;
-    boolean activo;
+    int cupos;
+    boolean disponible;
     LocalDate fechaFun;
     try {
         id = Integer.parseInt(txtId.getText().trim());
-        socios = Integer.parseInt(txtSocios.getText().trim());
-        activo = Boolean.parseBoolean(txtActivo.getText().trim());
+        cupos = Integer.parseInt(txtCupos.getText().trim());
+        disponible = Boolean.parseBoolean(txtDisponible.getText().trim());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        fechaFun = LocalDate.parse(txtFechaFundacion.getText().trim(), formatter);
+        fechaFun = LocalDate.parse(txtFechaInicio.getText().trim(), formatter);
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(this, "Revise los datos ingresados (número o fecha inválida).", "Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    Club club = new Club(id, txtNombre.getText().trim(), socios, activo, fechaFun,
-                          txtDireccion.getText().trim(), txtEmailContacto.getText().trim());
+    Actividad actividad = new Actividad(id, txtNombre.getText().trim(), cupos, disponible, fechaFun,
+                          txtDescripcion.getText().trim());
 
     try{
-        ClubDAO clubDAO = new ClubDAO();
-        boolean modificado = clubDAO.modificarClub(club);
+        
+        ActividadDAO actividadDAO = new ActividadDAO();
+
+        boolean modificado = actividadDAO.modificarActividad(actividad);
 
         if (modificado) {
-        JOptionPane.showMessageDialog(this, "Club modificado correctamente.");
+        JOptionPane.showMessageDialog(this, "Actividad modificado correctamente.");
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo modificar. Verifique el ID.", "Error", JOptionPane.ERROR_MESSAGE);
         }  }
@@ -126,7 +134,8 @@ public class ModificarClubFrame extends JFrame {
 
     private void volver() {
         this.dispose();
-        AdministradorClubFrame admin = new AdministradorClubFrame();
-        admin.setVisible(true);
+        AdministradorActividadFrame administradorActividadFrame = new AdministradorActividadFrame();
+        administradorActividadFrame.setVisible(true);
+        
     }
 }

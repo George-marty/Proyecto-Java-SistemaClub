@@ -82,8 +82,9 @@ public class RegistrarseClubFrame extends JFrame {
         btnVolver = new JButton("Volver");
         btnGuardar = new JButton("Guardar");
         JPanel panelBotones = new JPanel();
-        panelBotones.add(btnVolver);
         panelBotones.add(btnGuardar);
+        panelBotones.add(btnVolver);
+        
 
         panelPrincipal.add(panelFormulario, BorderLayout.CENTER);
         panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
@@ -101,7 +102,7 @@ public class RegistrarseClubFrame extends JFrame {
     private void volver() {
 
         this.dispose();
-        AdministradorClub  administradorClub = new AdministradorClub();
+        AdministradorClubFrame  administradorClub = new AdministradorClubFrame();
         
         administradorClub.setVisible(true);
     }

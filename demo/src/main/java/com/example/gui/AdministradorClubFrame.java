@@ -12,13 +12,13 @@ import java.awt.BorderLayout;
 import com.example.DAO.ClubDAO;
 import com.example.modelo.Club;
 
-public class AdministradorClub extends JFrame{
+public class AdministradorClubFrame extends JFrame{
     private JButton btnVolver;
     private JButton btnBorrar;
     private JButton btnRegistrarse;
     private JButton btnModificar;
 
-    public AdministradorClub(){
+    public AdministradorClubFrame(){
         configurarVentana();
         inicializarComponentes();
     }
@@ -81,6 +81,7 @@ public class AdministradorClub extends JFrame{
         this.dispose();
         RegistrarseClubFrame registrarseClubFrame = new RegistrarseClubFrame();
         registrarseClubFrame.setVisible(true);
+        
         
     }
     private void modificarClub(){
