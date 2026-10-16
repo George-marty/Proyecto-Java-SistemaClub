@@ -41,7 +41,7 @@ public class ActividadServicioImpl implements ActividadServicio {
     }
     public void guardarActividad(Actividad actividad, ArrayList<Actividad>listaActividad){
         int id = new ActividadDAO().insertActividad(actividad);
-        actividad.setId(id);
+        actividad.setIdActividad(id);
         listaActividad.add(actividad);
     }
 

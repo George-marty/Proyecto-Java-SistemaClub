@@ -1,16 +1,7 @@
 package com.example.gui;
 
 import javax.swing.JButton;
-/*CREATE TABLE club (
-    id                INT AUTO_INCREMENT PRIMARY KEY,
-    nombre            VARCHAR(100) NOT NULL UNIQUE,
-    socios            INT NOT NULL DEFAULT 0,
-    activo            BOOLEAN NOT NULL DEFAULT TRUE,
-    fecha_fundacion   DATE NOT NULL,
-    direccion         VARCHAR(150),
-    email_contacto    VARCHAR(100),
-    CONSTRAINT chk_club_socios CHECK (socios >= 0)
-); */
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -31,11 +22,8 @@ import java.time.format.DateTimeFormatter;
 public class RegistrarseClubFrame extends JFrame {
     private JTextField txtNombre;
     private JTextField txtSocios;
-    private JTextField txtActivo;
+    private JComboBox<String> cmbActivo;
     private JTextField txtFechaFundacion;
-    private JTextField txtDireccion;
-    private JTextField txtEmailContacto;
-
     private JButton btnGuardar;
     private JButton btnVolver;
 
@@ -52,6 +40,10 @@ public class RegistrarseClubFrame extends JFrame {
     }
 
     private void inicializarComponentes() {
+        formularioClub();
+    }
+
+    private void formularioClub() {
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         JPanel panelFormulario = new JPanel(new GridLayout(6, 2, 20, 15));
 
@@ -64,28 +56,19 @@ public class RegistrarseClubFrame extends JFrame {
         panelFormulario.add(txtSocios);
 
         panelFormulario.add(new JLabel("Activo", SwingConstants.CENTER));
-        txtActivo = new JTextField();
-        panelFormulario.add(txtActivo);
+        cmbActivo = new JComboBox<>(new String[] { "Activo", "No Activo" });
+        panelFormulario.add(cmbActivo);
 
         panelFormulario.add(new JLabel("Fecha Fundacion", SwingConstants.CENTER));
         txtFechaFundacion = new JTextField();
         panelFormulario.add(txtFechaFundacion);
 
-        panelFormulario.add(new JLabel("Direccion", SwingConstants.CENTER));
-        txtDireccion = new JTextField();
-        panelFormulario.add(txtDireccion);
-
-        panelFormulario.add(new JLabel("Email Contacto", SwingConstants.CENTER));
-        txtEmailContacto = new JTextField();
-        panelFormulario.add(txtEmailContacto);
-
         btnVolver = new JButton("Volver");
         btnGuardar = new JButton("Guardar");
+
         JPanel panelBotones = new JPanel();
         panelBotones.add(btnGuardar);
         panelBotones.add(btnVolver);
-        
-
         panelPrincipal.add(panelFormulario, BorderLayout.CENTER);
         panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
 
@@ -100,45 +83,49 @@ public class RegistrarseClubFrame extends JFrame {
     }
 
     private void volver() {
-
         this.dispose();
-        AdministradorClubFrame  administradorClub = new AdministradorClubFrame();
-        
+        AdministradorClubFrame administradorClub = new AdministradorClubFrame();
         administradorClub.setVisible(true);
     }
 
-    private void guardarClub(){
-        String nombre = txtNombre.getText().trim();
-        int socios = Integer.parseInt(txtSocios.getText().trim());
-        boolean activo = Boolean.parseBoolean(txtActivo.getText().trim());
-        String fechaFundacion = txtFechaFundacion.getText().trim();
-        String direccion = txtDireccion.getText().trim();
-        String emailContacto = txtEmailContacto.getText().trim();
+    private void guardarClub() {
 
-        final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaFun = LocalDate.parse(fechaFundacion,FORMATTER);
-
-        if (nombre.isEmpty() || txtSocios.getText().isEmpty() || txtActivo.getText().isEmpty() || fechaFundacion.isEmpty() || direccion.isEmpty() || emailContacto.isEmpty()){
-            JOptionPane.showMessageDialog(this, "Complete todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+        if (txtNombre.getText().trim().isEmpty() || txtSocios.getText().trim().isEmpty()
+                || txtFechaFundacion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        try {
+            String nombre = txtNombre.getText().trim();
+            int socios = Integer.parseInt(txtSocios.getText().trim());
+            String fechaFundacion = txtFechaFundacion.getText().trim();
+            String seleccion = (String) cmbActivo.getSelectedItem();
+            boolean activo = seleccion.equals("Activo");
+            final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fechaFun = LocalDate.parse(fechaFundacion, FORMATTER);
 
-        Club club = new Club(0, nombre, socios, activo, fechaFun, direccion, emailContacto);
+            Club club = new Club(0, nombre, socios, activo, fechaFun);
 
-        ClubServicioImpl servicios = new ClubServicioImpl();
-        servicios.guardarClub(club, Main.listaClub);
+            ClubServicioImpl servicios = new ClubServicioImpl();
+            servicios.guardarClub(club, Main.listaClub);
 
-        JOptionPane.showMessageDialog(this, "Club guardado correctamente");
-        limpiarFormulario();
+            JOptionPane.showMessageDialog(this, "Club guardado correctamente");
+            limpiarFormulario();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El campo socios debe ser un número entero válido", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "La fecha ingresada no es válida (Formato requerido: dd/MM/yyyy)",
+                    "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
-    private void limpiarFormulario(){
+    private void limpiarFormulario() {
         txtNombre.setText("");
         txtSocios.setText("");
-        txtActivo.setText("");
+        cmbActivo.setSelectedIndex(0);
         txtFechaFundacion.setText("");
-        txtDireccion.setText("");
-        txtEmailContacto.setText("");
     }
 
 }

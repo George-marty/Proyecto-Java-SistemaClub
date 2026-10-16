@@ -1,69 +1,54 @@
 package com.example.modelo;
 
-import java.time.LocalDate;
-
-public class Inscripcion {
-    private int id;
-    private Socio socio;
-    private Actividad actividad;
-    private LocalDate fechaInscripcion;
-    
+public class Inscripcion{
+    private int idInscripcion;
+    private Club club;
+    private Actividad Actividad;
+    private int precios;
     public Inscripcion() {
     }
-    
-    public Inscripcion(Socio socio, Actividad actividad, LocalDate fechaInscripcion) {
-        this.socio = socio;
-        this.actividad = actividad;
-        this.fechaInscripcion = fechaInscripcion;
+    public Inscripcion(Club club, com.example.modelo.Actividad actividad, int precios) {
+        this.club = club;
+        this.Actividad = actividad;
+        this.precios = precios;
     }
-    
-    public Inscripcion(int id, Socio socio, Actividad actividad, LocalDate fechaInscripcion) {
-        this.id = id;
-        this.socio = socio;
-        this.actividad = actividad;
-        this.fechaInscripcion = fechaInscripcion;
+    public Inscripcion(int idInscripcion, Club club, com.example.modelo.Actividad actividad, int precios) {
+        this.idInscripcion = idInscripcion;
+        this.club = club;
+        Actividad = actividad;
+        this.precios = precios;
     }
-
-    
-
-    public int getId() {
-        return id;
+    public int getIdInscripcion() {
+        return idInscripcion;
     }
-
-    public void setId(int id) {
-        this.id = id;
+    public void setIdInscripcion(int idInscripcion) {
+        this.idInscripcion = idInscripcion;
     }
-
-    public Socio getSocio() {
-        return socio;
+    public Club getClub() {
+        return club;
     }
-
-    public void setSocio(Socio socio) {
-        this.socio = socio;
+    public void setClub(Club club) {
+        this.club = club;
     }
-
     public Actividad getActividad() {
-        return actividad;
+        return Actividad;
     }
-
     public void setActividad(Actividad actividad) {
-        this.actividad = actividad;
+        Actividad = actividad;
     }
-
-    public LocalDate getFechaInscripcion() {
-        return fechaInscripcion;
+    public int getPrecios() {
+        return precios;
     }
-
-    public void setFechaInscripcion(LocalDate fechaInscripcion) {
-        this.fechaInscripcion = fechaInscripcion;
+    public void setPrecios(int precios) {
+        this.precios = precios;
     }
-
     @Override
     public String toString() {
-        return "Inscripcion [id=" + id + ", socio=" + socio + ", actividad=" + actividad + ", fecha_inscripcion="
-                + fechaInscripcion + "]";
+        return "Inscripcion [idInscripcion=" + idInscripcion + ", club=" + club + ", Actividad=" + Actividad
+                + ", precios=" + precios + "]";
     }
 
     
 
+    
 }

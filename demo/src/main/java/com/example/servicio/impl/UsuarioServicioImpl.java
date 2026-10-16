@@ -12,17 +12,7 @@ import com.example.servicio.UsuarioServicio;
 
 public class UsuarioServicioImpl implements UsuarioServicio{
     
-    public Usuario registrarUsuario(String username, String password) {
-    Usuario usuario = new Usuario();
-    usuario.setUsername(username);
-    usuario.setPasswordHash(convertirMD5(password));
-
-    UsuarioDAO usuarioDAO = new UsuarioDAO();
-    int id = usuarioDAO.insertarUsuario(usuario);
-    usuario.setId(id);
-
-    return usuario;
-}
+    
 
     
     public boolean validarUsuario(String username,String passwordHash){

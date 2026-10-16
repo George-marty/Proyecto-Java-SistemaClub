@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.example.modelo.Inscripcion;
 
 public interface InscripcionServicio {
-    public Inscripcion registrarInscripcion();
+    public Inscripcion registrarInscripcion(Inscripcion inscripcion,ArrayList<Inscripcion>listaInscripcion);
     public void guardarInscripcion(Inscripcion inscripcion,ArrayList<Inscripcion>listaInscripcion);
     public void mostrarInscripcion(ArrayList<Inscripcion>listaInscripcion);
 }

@@ -3,22 +3,26 @@ package com.example.gui;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+
 import javax.swing.SwingConstants;
 
+import com.example.Main;
 import com.example.DAO.ClubDAO;
+import com.example.modelo.Club;
 
 
 public class BorrarClubFrame extends JFrame{
     // Declaración de componentes 
-    private JTextField id;
+    private JComboBox<Club> cmbIdClub;
     private JButton btnBorrar;
-    private JButton btnVolver;
+    private JButton btnvolver;
 
     public BorrarClubFrame() {
         configurarVentana();
@@ -29,7 +33,7 @@ public class BorrarClubFrame extends JFrame{
         setTitle("Borrar Cliente");
         setSize(400, 200);
         //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
     }
 
@@ -37,18 +41,21 @@ public class BorrarClubFrame extends JFrame{
 
         JPanel panelPrincipal = new JPanel(new BorderLayout());
 
-        JPanel panelFormulario = new JPanel(new GridLayout(1, 2, 20, 25));
+        JPanel panelFormulario = new JPanel(new GridLayout(1, 1, 20, 25));
         panelFormulario.add(new JLabel("Ingrese Id Club a Borrar:", SwingConstants.CENTER));
         // El JTextField para el nombre
-        id = new JTextField();
-        panelFormulario.add(id);
+        cmbIdClub = new JComboBox<>();
+        cargarIdsClubes();
+        panelFormulario.add(cmbIdClub);
 
-        btnVolver = new JButton("Volver");
+        
         btnBorrar = new JButton("Borrar");
+        btnvolver = new JButton("Volver");
 
         JPanel panelBotones = new JPanel();
-        panelBotones.add(btnVolver);
+        
         panelBotones.add(btnBorrar);
+        panelBotones.add(btnvolver);
 
         panelPrincipal.add(panelFormulario, BorderLayout.CENTER);
         panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
@@ -56,56 +63,49 @@ public class BorrarClubFrame extends JFrame{
         add(panelPrincipal);
 
         // Aqui declaro los eventos de los botones 
-        btnBorrar.addActionListener(e -> { borrarClub(); });
-
-        btnVolver.addActionListener(e -> { volver(); });
+        btnBorrar.addActionListener(e -> { borrarClub();});
+        btnvolver.addActionListener(e -> { volverClub();});
+      
 
     }
-
-    private void volver() {
+    private void volverClub(){
         this.dispose();
-        AdministradorClubFrame listadoClubFrame = new AdministradorClubFrame();
-        listadoClubFrame.setVisible(true); // Abre la ventana principal
     }
+
+    
 
     private void borrarClub() {
+        // Obtenemos el ID seleccionado del JComboBox
+        Club idSeleccionado = (Club) cmbIdClub.getSelectedItem();
 
-        if (id.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ingrese el ID del Club a borrar.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            } else {
-                try {
-                    Integer.parseInt(id.getText().trim());
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
+        if (idSeleccionado == null) {
+            JOptionPane.showMessageDialog(this, "Seleccione un ID de club válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-        int idCliBorrar = Integer.parseInt(id.getText().trim());
-        
+        int idCliBorrar = idSeleccionado.getIdClub();
+
         if (idCliBorrar > 0) {
-            // Llamar al método para borrar el cliente
-            boolean borrado;
             try {
                 
-                borrado = ClubDAO.borrarClub(idCliBorrar);
+                 // Instanciando DAO correctamente
+                boolean borrado = ClubDAO.borrarClub(idCliBorrar);
                 if (borrado) {
-                javax.swing.JOptionPane.showMessageDialog(this, "Cliente con ID " + idCliBorrar + " borrado correctamente.");
-                id.setText(""); // Limpiar el campo de texto después de borrar
-                    } else {
-                        javax.swing.JOptionPane.showMessageDialog(this, "No se pudo borrar el cliente. Verifique el ID.");
-                        }
-                } catch (Exception e) {
-                // Si el método lanza una excepción, la capturamos y mostramos un mensaje de error
-                    JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar borrar el cliente");
-                    e.printStackTrace();
-                    }
-                
-
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Ingrese un ID mayor a cero.");
-            }
-                                                        
+                    JOptionPane.showMessageDialog(this, "Club con ID " + idCliBorrar + " borrado correctamente.");
+                    Main.listaClub.remove(idSeleccionado); // Elimina el ID borrado de la lista desplegable
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se pudo borrar el club. Verifique el ID.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar borrar el club", "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            } 
+        }
+        } 
+    private void cargarIdsClubes() {
+        cmbIdClub.removeAllItems();
+        for (Club club : Main.listaClub) {
+            cmbIdClub.addItem(club);
+        }
     }
 }

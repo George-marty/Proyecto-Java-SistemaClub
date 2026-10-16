@@ -29,55 +29,46 @@ public class MainFrame extends JFrame {
         add(panelBotones, BorderLayout.CENTER);
         construirModuloClub();
         construirModuloActividad();
+        construirModuloInscripcion();
         construirModuloSistema();
+        
 
     }
     public void construirModuloClub() {
         JButton btnClubCli = new JButton("Club");
-        
-        
-
         panelBotones.add(btnClubCli);
-        
-     
-
         btnClubCli.addActionListener(e -> administradorClub());
-        
-
-        
-        
-
     }
     private void administradorClub() {
         AdministradorClubFrame administradorClub = new AdministradorClubFrame();
         administradorClub.setVisible(true);
-        
         this.dispose();
-
     }
-
-   
-
-    private void construirModuloActividad() {
+    
+    private void construirModuloActividad(){
         JButton btnActividadAct = new JButton("Actividad");
-        
-        
-
         panelBotones.add(btnActividadAct);
-      
-       
-
         btnActividadAct.addActionListener(e -> administradorActividad());
-       
-       
     }
 
     private void administradorActividad(){
         AdministradorActividadFrame administradorActividad = new AdministradorActividadFrame();
         administradorActividad.setVisible(true);
         this.dispose();
-
     }
+
+    private void construirModuloInscripcion(){
+        JButton btnInscripcion = new JButton("Inscripcion");
+        panelBotones.add(btnInscripcion);
+        btnInscripcion.addActionListener(e -> administradorInscripcion());
+    }
+
+    private void administradorInscripcion(){
+        AdministradorInscripcionFrame administradorFrame = new AdministradorInscripcionFrame();
+        administradorFrame.setVisible(true);
+        this.dispose();
+    }
+
     
 
     private void construirModuloSistema() {

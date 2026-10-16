@@ -29,21 +29,14 @@ public class LoginFrame extends JFrame {
         JLabel lblClave = new JLabel("Clave:", SwingConstants.CENTER);
         JTextField txtClave = new JPasswordField();
         JButton btnIngresar = new JButton("Ingresar");
-        JButton btnRegistrarse = new JButton("Registrarse");
 
         panel.add(lblUsuario);
         panel.add(txtUsuario);
         panel.add(lblClave);
         panel.add(txtClave);
         panel.add(btnIngresar);
-        panel.add(btnRegistrarse);
 
         add(panel, BorderLayout.CENTER);
-
-        
-
-
-
 
         btnIngresar.addActionListener(e -> {
             String usuario = txtUsuario.getText();
@@ -68,14 +61,6 @@ public class LoginFrame extends JFrame {
             }
         });
 
-
-        btnRegistrarse.addActionListener(e -> registroUser() );
-    }
-
-    private void registroUser(){
-        RegisterFrame registerFrame = new RegisterFrame();
-        registerFrame.setVisible(true);
-        this.dispose();
     }
 
 }

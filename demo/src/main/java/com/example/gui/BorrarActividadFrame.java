@@ -5,18 +5,19 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
-
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.example.Main;
 import com.example.DAO.ActividadDAO;
+import com.example.modelo.Actividad;
 
 
 public class BorrarActividadFrame extends  JFrame{
-    private JTextField id;
+    private JComboBox<Actividad> cmbIdActividad;
     private JButton btnBorrar;
     private JButton btnVolver;
 
@@ -39,9 +40,9 @@ public class BorrarActividadFrame extends  JFrame{
 
         JPanel panelFormulario = new JPanel(new GridLayout(1, 2, 20, 25));
         panelFormulario.add(new JLabel("Ingrese Id Actividad a Borrar:", SwingConstants.CENTER));
-        // El JTextField para el nombre
-        id = new JTextField();
-        panelFormulario.add(id);
+        cmbIdActividad = new JComboBox<>();
+        cargarIdsActividad();
+        panelFormulario.add(cmbIdActividad);
 
         btnBorrar = new JButton("Borrar");
         btnVolver = new JButton("Volver");
@@ -71,20 +72,13 @@ public class BorrarActividadFrame extends  JFrame{
     }
 
     private void borrarActividad() {
-
-        if (id.getText().trim().isEmpty()) {
+        Actividad idSeleccionado = (Actividad) cmbIdActividad.getSelectedItem();
+        if (idSeleccionado == null) {
                 JOptionPane.showMessageDialog(this, "Ingrese el ID del Actividad a borrar.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
-            } else {
-                try {
-                    Integer.parseInt(id.getText().trim());
-                } catch (NumberFormatException ex) {
-                    JOptionPane.showMessageDialog(this, "El ID debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-            }
+            } 
 
-        int idCliBorrar = Integer.parseInt(id.getText().trim());
+        int idCliBorrar = idSeleccionado.getIdActividad();
         
         if (idCliBorrar > 0) {
             // Llamar al método para borrar el cliente
@@ -94,7 +88,7 @@ public class BorrarActividadFrame extends  JFrame{
                 borrado = ActividadDAO.borrarActividad(idCliBorrar);
                 if (borrado) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Actividad con ID " + idCliBorrar + " borrado correctamente.");
-                id.setText(""); // Limpiar el campo de texto después de borrar
+                cmbIdActividad.removeItem(idSeleccionado); // Limpiar el campo de texto después de borrar
                     } else {
                         javax.swing.JOptionPane.showMessageDialog(this, "No se pudo borrar el cliente. Verifique el ID.");
                         }
@@ -105,9 +99,13 @@ public class BorrarActividadFrame extends  JFrame{
                     }
                 
 
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(this, "Ingrese un ID mayor a cero.");
-            }
+        } 
                                                         
+    }
+    private void cargarIdsActividad(){
+        cmbIdActividad.removeAllItems();
+        for (Actividad actividad : Main.listaActividad) {
+            cmbIdActividad.addItem(actividad);
+        }
     }
 }

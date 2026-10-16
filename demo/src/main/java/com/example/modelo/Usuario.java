@@ -1,6 +1,6 @@
 package com.example.modelo;
 
-import java.time.LocalDateTime;
+
 
 public class Usuario {
     private int id;
@@ -17,8 +17,7 @@ public class Usuario {
         
     }
 
-    public Usuario(int id, String username, String passwordHash, String rol, boolean activo,
-            LocalDateTime fechaCreacion, Socio socio) {
+    public Usuario(int id, String username, String passwordHash) {
         this.id = id;
         this.username = username;
         this.passwordHash = passwordHash;

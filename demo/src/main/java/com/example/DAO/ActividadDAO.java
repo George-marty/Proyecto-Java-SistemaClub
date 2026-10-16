@@ -8,14 +8,14 @@ import com.example.modelo.Actividad;
 public class ActividadDAO {
     public int insertActividad(Actividad actividad) {
         int id = 0;
-        String sql = "INSERT INTO actividad (nombre,cupo,disponible,fecha_inicio,descripcion) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO actividad (nombre,cupo,disponible,fechaInicio) VALUES (?,?,?,?)";
         try (var conexion = new ConectarBase().conectar();
                 var preparedStatement = conexion.prepareStatement(sql, java.sql.Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, actividad.getNombre());
             preparedStatement.setInt(2, actividad.getCupo());
             preparedStatement.setBoolean(3, actividad.isDisponible());
             preparedStatement.setDate(4, java.sql.Date.valueOf(actividad.getFechaInicio()));
-            preparedStatement.setString(5, actividad.getDescripcion());
+            
 
             int affectedRows = preparedStatement.executeUpdate();
 
@@ -34,15 +34,15 @@ public class ActividadDAO {
     }
 
     public boolean modificarActividad(Actividad actividad){
-        String sql = "UPDATE actividad set nombre = ?, cupo = ?, disponible = ?, fecha_inicio = ?, descripcion = ? WHERE id = ? ";
+        String sql = "UPDATE actividad set nombre = ?, cupo = ?, disponible = ?, fechaInicio = ?, descripcion = ? WHERE idActividad = ? ";
         try (var conexion = new ConectarBase().conectar();
         var preparedStatement = conexion.prepareStatement(sql)){
             preparedStatement.setString(1, actividad.getNombre());
             preparedStatement.setInt(2, actividad.getCupo());
             preparedStatement.setBoolean(3, actividad.isDisponible());
             preparedStatement.setDate(4, java.sql.Date.valueOf(actividad.getFechaInicio()));
-            preparedStatement.setString(5, actividad.getDescripcion());
-            preparedStatement.setInt(6, actividad.getId());
+            
+            preparedStatement.setInt(6, actividad.getIdActividad());
             int affectedRows = preparedStatement.executeUpdate();
             return  affectedRows > 0;
         } catch (Exception e) {
@@ -52,7 +52,7 @@ public class ActividadDAO {
     }
 
     public static boolean borrarActividad(int id){
-        String sql = "DELETE FROM actividad WHERE id = ?";
+        String sql = "DELETE FROM actividad WHERE idActividad = ?";
         try (var conexion = new ConectarBase().conectar();
         var preparedStatement = conexion.prepareStatement(sql)){
             preparedStatement.setInt(1, id);
@@ -73,12 +73,11 @@ public class ActividadDAO {
         var resultSet = statement.executeQuery(sql)){
             while (resultSet.next()){
                 Actividad actividad = new Actividad();
-                actividad.setId(resultSet.getInt("id"));
+                actividad.setIdActividad(resultSet.getInt("idActividad"));
                 actividad.setNombre(resultSet.getString("nombre"));
                 actividad.setCupo(resultSet.getInt("cupo"));
                 actividad.setDisponible(resultSet.getBoolean("disponible"));
-                actividad.setFechaInicio(resultSet.getDate("fecha_inicio").toLocalDate());
-                actividad.setDescripcion(resultSet.getString("descripcion"));
+                actividad.setFechaInicio(resultSet.getDate("fechaInicio").toLocalDate());
                 listaActividad.add(actividad);
             }
         } catch (Exception e){

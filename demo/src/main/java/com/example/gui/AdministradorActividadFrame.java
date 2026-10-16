@@ -29,10 +29,10 @@ public class AdministradorActividadFrame extends JFrame{
     }
     private void inicializarComponentes(){
         ActividadDAO actividadDAO = new ActividadDAO();
-        String [] columnas = {"id","nombre","cupo","disponible","fecha_inicio","descripcion"};
+        String [] columnas = {"id","nombre","cupo","disponible","fecha_inicio"};
         DefaultTableModel modelo = new DefaultTableModel(null,columnas);
         for (Actividad actividad : actividadDAO.obtenerActividad()) {
-            Object[] fila = {actividad.getId(),actividad.getNombre(),actividad.getCupo(),actividad.isDisponible(),actividad.getFechaInicio(),actividad.getDescripcion()};
+            Object[] fila = {actividad.getIdActividad(),actividad.getNombre(),actividad.getCupo(),actividad.isDisponible(),actividad.getFechaInicio()};
             modelo.addRow(fila);
         }
         JTable miJtable = new JTable(modelo);

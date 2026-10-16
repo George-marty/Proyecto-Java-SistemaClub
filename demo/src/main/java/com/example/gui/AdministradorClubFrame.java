@@ -1,6 +1,7 @@
 package com.example.gui;
 
 import javax.swing.JButton;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -17,6 +18,7 @@ public class AdministradorClubFrame extends JFrame{
     private JButton btnBorrar;
     private JButton btnRegistrarse;
     private JButton btnModificar;
+    
 
     public AdministradorClubFrame(){
         configurarVentana();
@@ -30,11 +32,11 @@ public class AdministradorClubFrame extends JFrame{
     }
     private void inicializarComponentes(){
         ClubDAO clubDAO = new ClubDAO();
-        String [] columnas = {"id","nombre","socios","activo","fecha_fundacion","direccion","email_contacto"};
+        String [] columnas = {"id","nombre","socios","activo","fecha_fundacion"};
         DefaultTableModel modelo = new DefaultTableModel(null,columnas);
         
         for (Club club : clubDAO.obtenerClub()) {
-            Object[] fila = {club.getId(),club.getNombre(),club.getSocios(),club.isActivo(),club.getFechaFundacion(),club.getDireccion(),club.getEmailContacto()};
+            Object[] fila = {club.getIdClub(),club.getNombre(),club.getSocios(),club.isActivo(),club.getFechaFundacion()};
             modelo.addRow(fila);
             
         }
@@ -73,7 +75,6 @@ public class AdministradorClubFrame extends JFrame{
         ventanaPrincipal.setVisible(true); 
     }
     private void borrar(){
-        this.dispose();
         BorrarClubFrame borrarClubFrame = new BorrarClubFrame();
         borrarClubFrame.setVisible(true);
     }
