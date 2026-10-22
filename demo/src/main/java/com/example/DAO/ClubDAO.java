@@ -51,19 +51,16 @@ public class ClubDAO {
         }
     }
 
-    public static boolean borrarClub(int id) {
-        String sql = "DELETE FROM club WHERE idClub = ?";
-        try (var conexion = new ConectarBase().conectar();
-                var preparedStatement = conexion.prepareStatement(sql)) {
+    public static boolean borrarClub(int id) throws java.sql.SQLException {
+    String sql = "DELETE FROM club WHERE idClub = ?";
+    try (var conexion = new ConectarBase().conectar();
+         var preparedStatement = conexion.prepareStatement(sql)) {
 
-            preparedStatement.setInt(1, id);
-            int affectedRows = preparedStatement.executeUpdate();
-            return affectedRows > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+        preparedStatement.setInt(1, id);
+        int affectedRows = preparedStatement.executeUpdate();
+        return affectedRows > 0;
     }
+}
 
     public ArrayList<Club> obtenerClub() {
         ArrayList<Club> listaClub = new ArrayList<>();

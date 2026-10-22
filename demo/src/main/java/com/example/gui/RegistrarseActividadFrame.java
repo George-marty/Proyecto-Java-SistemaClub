@@ -2,7 +2,6 @@ package com.example.gui;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -13,10 +12,8 @@ import javax.swing.JTextField;
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.GridLayout;
-
 import com.example.Main;
 import com.example.modelo.Actividad;
-
 import com.example.servicio.impl.ActividadServicioImpl;
 
 
@@ -25,9 +22,6 @@ public class RegistrarseActividadFrame extends JFrame{
     private JTextField txtCupo;
     private JComboBox<String> cmbDisponible;
     private JTextField txtFechaInicio;
-    
-    
-
     private JButton btnGuardar;
     private JButton btnVolver;
 
@@ -42,8 +36,11 @@ public class RegistrarseActividadFrame extends JFrame{
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null); // Centra pantallas
     }
-
+    
     private void inicializarComponentes() {
+        formularioActividad();
+    }
+    private void formularioActividad(){
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         JPanel panelFormulario = new JPanel(new GridLayout(6, 2, 20, 15));
 
@@ -62,10 +59,6 @@ public class RegistrarseActividadFrame extends JFrame{
         panelFormulario.add(new JLabel("Fecha Inicio", SwingConstants.CENTER));
         txtFechaInicio = new JTextField();
         panelFormulario.add(txtFechaInicio);
-
-        
-
-        
 
         btnVolver = new JButton("Volver");
         btnGuardar = new JButton("Guardar");
@@ -86,11 +79,8 @@ public class RegistrarseActividadFrame extends JFrame{
             volver();
         });
     }
-
     private void volver() {
-
         this.dispose();
-        
         AdministradorActividadFrame administradorActividadFrame = new AdministradorActividadFrame();
         administradorActividadFrame.setVisible(true);
     }
@@ -98,28 +88,19 @@ public class RegistrarseActividadFrame extends JFrame{
     private void guardarActividad(){
         String nombre = txtNombre.getText().trim();
         int cupos = Integer.parseInt(txtCupo.getText().trim());
-        
         String fechaInicio = txtFechaInicio.getText().trim();
-       
         String seleccion = (String) cmbDisponible.getSelectedItem();
         boolean disponible = seleccion.equals("Sí");
-
         final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate fechaFun = LocalDate.parse(fechaInicio,FORMATTER);
-
+        
         if (nombre.isEmpty() || txtCupo.getText().isEmpty()  || fechaInicio.isEmpty()  ){
             JOptionPane.showMessageDialog(this, "Complete todos los campos","Error",JOptionPane.ERROR_MESSAGE);
             return;
         }
-
-        
-        
-        
         Actividad actividad = new Actividad(0,nombre, cupos, disponible, fechaFun);
-
         ActividadServicioImpl servicioImpl = new ActividadServicioImpl();
         servicioImpl.guardarActividad(actividad, Main.listaActividad);
-
         JOptionPane.showMessageDialog(this, "Actividad guardado correctamente");
         limpiarFormulario();
     }

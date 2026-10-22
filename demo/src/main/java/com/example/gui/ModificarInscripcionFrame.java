@@ -22,7 +22,6 @@ public class ModificarInscripcionFrame extends JFrame {
     private JComboBox<Club> cmbClub;
     private JComboBox<Actividad> cmbActividad;
     private JTextField txtPrecio;
-    
     private JButton btnActualizar;
     private JButton btnVolver;
 
@@ -39,34 +38,37 @@ public class ModificarInscripcionFrame extends JFrame {
     }
 
     private void inicializarComponentes() {
+        formularioInscripcionModificacion();
+        cargarInscripciones();
+        cargarClubes();
+        cargarActividades();
+    }
+
+    private void formularioInscripcionModificacion() {
         JPanel panelFormulario = new JPanel(new GridLayout(5, 2, 10, 10));
 
-        // 1. Selector de la inscripción a modificar
         panelFormulario.add(new JLabel("Seleccionar Inscripción:"));
         cmbIdInscripcion = new JComboBox<>();
-        cargarInscripciones();
+
         panelFormulario.add(cmbIdInscripcion);
 
-        // 2. Nuevo Club asociado
         panelFormulario.add(new JLabel("Nuevo Club:"));
         cmbClub = new JComboBox<>();
-        cargarClubes();
+
         panelFormulario.add(cmbClub);
 
-        // 3. Nueva Actividad asociada
         panelFormulario.add(new JLabel("Nueva Actividad:"));
         cmbActividad = new JComboBox<>();
-        cargarActividades();
+
         panelFormulario.add(cmbActividad);
 
-        // 4. Nuevo Precio
         panelFormulario.add(new JLabel("Nuevo Precio:"));
         txtPrecio = new JTextField();
         panelFormulario.add(txtPrecio);
 
         btnActualizar = new JButton("Actualizar");
         btnVolver = new JButton("Volver");
-        
+
         JPanel panelBotones = new JPanel();
         panelBotones.add(btnActualizar);
         panelBotones.add(btnVolver);
@@ -76,7 +78,6 @@ public class ModificarInscripcionFrame extends JFrame {
         panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
         add(panelPrincipal);
 
-        // Evento opcional: al seleccionar una inscripción del combo, podríamos autocompletar campos si se desea
         cmbIdInscripcion.addActionListener(e -> autocompletarDatos());
 
         btnActualizar.addActionListener(e -> actualizarInscripcion());
@@ -107,10 +108,9 @@ public class ModificarInscripcionFrame extends JFrame {
     private void autocompletarDatos() {
         Inscripcion seleccionada = (Inscripcion) cmbIdInscripcion.getSelectedItem();
         if (seleccionada != null) {
-            // Rellenar el campo de precio con el actual de la inscripción seleccionada
+
             txtPrecio.setText(String.valueOf(seleccionada.getPrecios()));
-            
-            // Opcionalmente podrías seleccionar en los JComboBox de Club y Actividad los correspondientes
+
         }
     }
 
@@ -126,31 +126,32 @@ public class ModificarInscripcionFrame extends JFrame {
         Actividad actividadSeleccionada;
 
         try {
-            // Obtenemos la inscripción seleccionada
+
             Inscripcion inscripcionSel = (Inscripcion) cmbIdInscripcion.getSelectedItem();
             if (inscripcionSel == null) {
-                JOptionPane.showMessageDialog(this, "Seleccione una inscripción válida.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Seleccione una inscripción válida.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
             idInscripcion = inscripcionSel.getIdInscripcion();
 
-            // Obtenemos los nuevos objetos relacionados de los ComboBox
             clubSeleccionado = (Club) cmbClub.getSelectedItem();
             actividadSeleccionada = (Actividad) cmbActividad.getSelectedItem();
 
             if (clubSeleccionado == null || actividadSeleccionada == null) {
-                JOptionPane.showMessageDialog(this, "Debe seleccionar un club y una actividad válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un club y una actividad válidos.", "Error",
+                        JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             nuevoPrecio = Integer.parseInt(txtPrecio.getText().trim());
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Revise los datos ingresados (el precio debe ser un número entero).", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Revise los datos ingresados (el precio debe ser un número entero).",
+                    "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Creamos el objeto inscripción actualizado
         Inscripcion inscripcionActualizada = new Inscripcion();
         inscripcionActualizada.setIdInscripcion(idInscripcion);
         inscripcionActualizada.setClub(clubSeleccionado);
@@ -163,19 +164,20 @@ public class ModificarInscripcionFrame extends JFrame {
 
             if (modificado) {
                 JOptionPane.showMessageDialog(this, "Inscripción modificada correctamente.");
-                // Opcional: actualizar tu lista global en memoria si manejas una sincronizada
             } else {
-                JOptionPane.showMessageDialog(this, "No se pudo modificar la inscripción. Verifique los datos.", "Error", JOptionPane.ERROR_MESSAGE);
-            }  
+                JOptionPane.showMessageDialog(this, "No se pudo modificar la inscripción. Verifique los datos.",
+                        "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar modificar la inscripción", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar modificar la inscripción", "Error",
+                    JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
-        }   
+        }
     }
 
     private void volver() {
         this.dispose();
-        // AdministradorInscripcionFrame admin = new AdministradorInscripcionFrame();
-        // admin.setVisible(true);
+        AdministradorInscripcionFrame admin = new AdministradorInscripcionFrame();
+        admin.setVisible(true);
     }
 }

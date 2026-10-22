@@ -34,7 +34,7 @@ public class ActividadDAO {
     }
 
     public boolean modificarActividad(Actividad actividad){
-        String sql = "UPDATE actividad set nombre = ?, cupo = ?, disponible = ?, fechaInicio = ?, descripcion = ? WHERE idActividad = ? ";
+        String sql = "UPDATE actividad set nombre = ?, cupo = ?, disponible = ?, fechaInicio = ?WHERE idActividad = ? ";
         try (var conexion = new ConectarBase().conectar();
         var preparedStatement = conexion.prepareStatement(sql)){
             preparedStatement.setString(1, actividad.getNombre());

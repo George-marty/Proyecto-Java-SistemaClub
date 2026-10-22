@@ -2,7 +2,6 @@ package com.example.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,18 +10,28 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import com.example.servicio.UsuarioServicio;
 import com.example.servicio.impl.UsuarioServicioImpl;
 
 public class LoginFrame extends JFrame {
-
+    private JTextField txtUsuario;
+    private JTextField txtClave;
+   
     public LoginFrame() {
+        configurarVentana();
+        formularioLogin();
+        
+
+        
+
+    }
+    private void configurarVentana(){
         setTitle("Ingreso al Sistema de Turismo");
         setSize(300, 200);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-
+    }
+    private void formularioLogin(){
         JPanel panel = new JPanel(new GridLayout(3, 1, 10, 10));
         JLabel lblUsuario = new JLabel("Usuario:", SwingConstants.CENTER);
         JTextField txtUsuario = new JTextField();
@@ -39,28 +48,22 @@ public class LoginFrame extends JFrame {
         add(panel, BorderLayout.CENTER);
 
         btnIngresar.addActionListener(e -> {
-            String usuario = txtUsuario.getText();
-            String clave = txtClave.getText();
-
-            // Instanciamos la clase que implementa la interfaz
-            UsuarioServicio usuarioServicio = new UsuarioServicioImpl();
-
-            // Invocamos el método a través del objeto/instancia
-            boolean ingresoPermitido = usuarioServicio.validarUsuario(usuario, clave);
-
-            // Si el ingreso es permitido, se muestra un mensaje de éxito y se abre la
-            // ventana principal
-            if (ingresoPermitido) {
-                JOptionPane.showMessageDialog(this, "Ingreso exitoso");
-                // Se abre la ventana principal de la aplicación
-                MainFrame mainFrame = new MainFrame();
-                mainFrame.setVisible(true);
-                this.dispose(); // Cierra la ventana de login
-            } else {
+            ingresarUsuario();
+        });
+    }
+    private void ingresarUsuario(){
+        String usuario = txtUsuario.getText();
+        String clave = txtClave.getText();
+        UsuarioServicio usuarioServicio = new UsuarioServicioImpl();
+        boolean ingresoPermitido = usuarioServicio.validarUsuario(usuario, clave);
+        if (ingresoPermitido) {
+            JOptionPane.showMessageDialog(this, "Ingreso exitoso");
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
+            this.dispose(); 
+        } else {
                 JOptionPane.showMessageDialog(this, "Usuario o clave incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             }
-        });
-
     }
 
 }

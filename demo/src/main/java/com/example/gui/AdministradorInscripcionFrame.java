@@ -1,14 +1,12 @@
 package com.example.gui;
 
 import javax.swing.JButton;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.BorderLayout;
-
 import com.example.DAO.InscripcionDAO;
 import com.example.modelo.Inscripcion;
 
@@ -70,19 +68,18 @@ public class AdministradorInscripcionFrame extends JFrame{
         ventanaPrincipal.setVisible(true); 
     }
     private void borrar(){
-        BorrarClubFrame borrarClubFrame = new BorrarClubFrame();
-        borrarClubFrame.setVisible(true);
+        BorrarInscripcionFrame borrarInscripcionFrame = new BorrarInscripcionFrame();
+        borrarInscripcionFrame.setVisible(true);
+        this.dispose();
     }
     private void registrarse(){
         this.dispose();
         RegistrarInscripcionFrame registrarInscripcionFrame = new RegistrarInscripcionFrame();
         registrarInscripcionFrame.setVisible(true);
-        
-        
     }
     private void modificar(){
         this.dispose();
-        ModificarClubFrame modificarClubFrame = new ModificarClubFrame();
-        modificarClubFrame.setVisible(true);
+        ModificarInscripcionFrame modificarInscripcionFrame = new ModificarInscripcionFrame();
+        modificarInscripcionFrame.setVisible(true);
     }
 }

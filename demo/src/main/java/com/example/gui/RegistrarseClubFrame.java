@@ -8,13 +8,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import com.example.Main;
 import com.example.modelo.Club;
 import com.example.servicio.impl.ClubServicioImpl;
-
 import java.awt.BorderLayout;
-
 import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -89,7 +86,6 @@ public class RegistrarseClubFrame extends JFrame {
     }
 
     private void guardarClub() {
-
         if (txtNombre.getText().trim().isEmpty() || txtSocios.getText().trim().isEmpty()
                 || txtFechaFundacion.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);

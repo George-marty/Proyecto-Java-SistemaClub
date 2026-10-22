@@ -19,7 +19,6 @@ import com.example.modelo.Inscripcion;
 import com.example.servicio.impl.InscripcionServicioImpl;
 
 public class RegistrarInscripcionFrame extends JFrame {
-
     private JComboBox<Club> cmbIdClub;
     private JComboBox<Actividad> cmbIdActividad;
     private JTextField txtPrecio;
@@ -39,8 +38,11 @@ public class RegistrarInscripcionFrame extends JFrame {
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null); // Centra pantallas
     }
-
+    
     private void inicializarComponentes() {
+        formularioInscripcion();
+    }
+    private void formularioInscripcion(){
         JPanel panelPrincipal = new JPanel(new BorderLayout());
         JPanel panelFormulario = new JPanel(new GridLayout(6, 2, 20, 15));
 
@@ -71,15 +73,15 @@ public class RegistrarInscripcionFrame extends JFrame {
         btnGuardar.addActionListener(e -> guardar());
         btnVolver.addActionListener(e -> volver());
     }
-
+    //Se carga al comboBox la lista del club para obtener su idClub
     private void cargarIdClub() {
         cmbIdClub.removeAllItems();
         for (Club club : Main.listaClub) {
-            cmbIdClub.addItem(club); // Pasas el objeto Club completo, no solo el ID
+            cmbIdClub.addItem(club);
 
         }
     }
-
+    //Se carga al comboBox la lista de la actividad para obtener su idActividad
     private void cargarIdActividad() {
         cmbIdActividad.removeAllItems();
         for (Actividad actividad : Main.listaActividad) {
@@ -87,7 +89,7 @@ public class RegistrarInscripcionFrame extends JFrame {
         }
     }
 
-    // 3. En tu método guardar, simplemente extraes los objetos seleccionados
+    
     private void guardar() {
         if (txtPrecio.getText().trim().isEmpty() || cmbIdClub.getSelectedItem() == null
                 || cmbIdActividad.getSelectedItem() == null) {
@@ -105,16 +107,11 @@ public class RegistrarInscripcionFrame extends JFrame {
             return;
         }
 
-        // Obtenemos los objetos directamente del ComboBox casteados a su tipo
         Club clubSeleccionado = (Club) cmbIdClub.getSelectedItem();
         Actividad actividadSeleccionada = (Actividad) cmbIdActividad.getSelectedItem();
-
-        // Usamos el constructor que ya tienes en tu clase Inscripcion que pide objetos
         Inscripcion inscripcion = new Inscripcion(0, clubSeleccionado, actividadSeleccionada, precio);
-
         InscripcionServicioImpl inscripcionServicioImpl = new InscripcionServicioImpl();
         inscripcionServicioImpl.guardarInscripcion(inscripcion, Main.listaInscripcion);
-
         JOptionPane.showMessageDialog(this, "Inscripción guardada correctamente");
         limpiarFormulario();
     }

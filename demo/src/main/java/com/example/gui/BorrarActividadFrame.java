@@ -29,15 +29,15 @@ public class BorrarActividadFrame extends  JFrame{
     private void configurarVentana() {
         setTitle("Borrar Actividad");
         setSize(400, 200);
-        //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
     }
 
     private void inicializarComponentes() {
-
+        formularioActividadBorrar();
+    }
+    private void formularioActividadBorrar(){
         JPanel panelPrincipal = new JPanel(new BorderLayout());
-
         JPanel panelFormulario = new JPanel(new GridLayout(1, 2, 20, 25));
         panelFormulario.add(new JLabel("Ingrese Id Actividad a Borrar:", SwingConstants.CENTER));
         cmbIdActividad = new JComboBox<>();
@@ -47,7 +47,6 @@ public class BorrarActividadFrame extends  JFrame{
         btnBorrar = new JButton("Borrar");
         btnVolver = new JButton("Volver");
         
-
         JPanel panelBotones = new JPanel();
         panelBotones.add(btnVolver);
         panelBotones.add(btnBorrar);
@@ -57,19 +56,10 @@ public class BorrarActividadFrame extends  JFrame{
 
         add(panelPrincipal);
 
-        // Aqui declaro los eventos de los botones 
         btnBorrar.addActionListener(e -> { borrarActividad(); });
-
         btnVolver.addActionListener(e -> { volver(); });
-
     }
 
-    private void volver() {
-        this.dispose();
-        AdministradorActividadFrame administradorActividadFrame = new AdministradorActividadFrame();
-        administradorActividadFrame.setVisible(true);
-        
-    }
 
     private void borrarActividad() {
         Actividad idSeleccionado = (Actividad) cmbIdActividad.getSelectedItem();
@@ -81,19 +71,18 @@ public class BorrarActividadFrame extends  JFrame{
         int idCliBorrar = idSeleccionado.getIdActividad();
         
         if (idCliBorrar > 0) {
-            // Llamar al método para borrar el cliente
             boolean borrado;
             try {
                 
                 borrado = ActividadDAO.borrarActividad(idCliBorrar);
                 if (borrado) {
                 javax.swing.JOptionPane.showMessageDialog(this, "Actividad con ID " + idCliBorrar + " borrado correctamente.");
-                cmbIdActividad.removeItem(idSeleccionado); // Limpiar el campo de texto después de borrar
+                cmbIdActividad.removeItem(idSeleccionado); 
                     } else {
                         javax.swing.JOptionPane.showMessageDialog(this, "No se pudo borrar el cliente. Verifique el ID.");
                         }
                 } catch (Exception e) {
-                // Si el método lanza una excepción, la capturamos y mostramos un mensaje de error
+                
                     JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar borrar la Actividad");
                     e.printStackTrace();
                     }
@@ -107,5 +96,12 @@ public class BorrarActividadFrame extends  JFrame{
         for (Actividad actividad : Main.listaActividad) {
             cmbIdActividad.addItem(actividad);
         }
+    }
+    
+    private void volver() {
+        this.dispose();
+        AdministradorActividadFrame administradorActividadFrame = new AdministradorActividadFrame();
+        administradorActividadFrame.setVisible(true);
+        
     }
 }

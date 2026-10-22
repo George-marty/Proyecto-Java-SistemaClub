@@ -69,26 +69,16 @@ public class MainFrame extends JFrame {
         this.dispose();
     }
 
-    
-
     private void construirModuloSistema() {
         JButton btnSalir = new JButton("Salir");
-       
         panelBotones.add(btnSalir);
-
         btnSalir.addActionListener(e-> salir());
     }
     private void salir(){
          SwingUtilities.invokeLater(() -> {
-
-            //MainFrame ventana = new MainFrame();
             LoginFrame ventana = new LoginFrame();  
-
             ventana.setVisible(true);
             this.dispose();
         });
-
     }
-
-
 }

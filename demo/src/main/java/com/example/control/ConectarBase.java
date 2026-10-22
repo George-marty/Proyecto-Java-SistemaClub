@@ -10,7 +10,7 @@ public class ConectarBase {
     public ConectarBase(){
         this.conexion = null;
     }
-    public Connection conectar() throws InstantiationException,IllegalAccessException{
+    public Connection conectar() {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = Configuracion.BBDD_DRIVER + "://" + Configuracion.BBDD_IP + ":"
