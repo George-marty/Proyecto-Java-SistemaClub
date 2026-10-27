@@ -49,8 +49,9 @@ public class BorrarInscripcionFrame extends JFrame {
         btnVolver = new JButton("Volver");
 
         JPanel panelBotones = new JPanel();
-        panelBotones.add(btnVolver);
         panelBotones.add(btnBorrar);
+        panelBotones.add(btnVolver);
+        
 
         panelPrincipal.add(panelFormulario, BorderLayout.CENTER);
         panelPrincipal.add(panelBotones, BorderLayout.SOUTH);

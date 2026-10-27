@@ -34,7 +34,7 @@ public class ModificarClubFrame extends JFrame {
 
     private void configurarVentana() {
         setTitle("Modificar Club");
-        setSize(400, 400);
+        setSize(450, 400);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
     }

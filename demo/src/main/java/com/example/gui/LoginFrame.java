@@ -15,15 +15,11 @@ import com.example.servicio.impl.UsuarioServicioImpl;
 
 public class LoginFrame extends JFrame {
     private JTextField txtUsuario;
-    private JTextField txtClave;
+    private JPasswordField txtClave;
    
     public LoginFrame() {
         configurarVentana();
         formularioLogin();
-        
-
-        
-
     }
     private void configurarVentana(){
         setTitle("Ingreso al Sistema de Turismo");
@@ -33,10 +29,13 @@ public class LoginFrame extends JFrame {
     }
     private void formularioLogin(){
         JPanel panel = new JPanel(new GridLayout(3, 1, 10, 10));
+       
         JLabel lblUsuario = new JLabel("Usuario:", SwingConstants.CENTER);
-        JTextField txtUsuario = new JTextField();
+        txtUsuario = new JTextField();
+        
         JLabel lblClave = new JLabel("Clave:", SwingConstants.CENTER);
-        JTextField txtClave = new JPasswordField();
+        txtClave = new JPasswordField();
+        
         JButton btnIngresar = new JButton("Ingresar");
 
         panel.add(lblUsuario);
@@ -53,7 +52,7 @@ public class LoginFrame extends JFrame {
     }
     private void ingresarUsuario(){
         String usuario = txtUsuario.getText();
-        String clave = txtClave.getText();
+        String clave = new String(txtClave.getPassword());
         UsuarioServicio usuarioServicio = new UsuarioServicioImpl();
         boolean ingresoPermitido = usuarioServicio.validarUsuario(usuario, clave);
         if (ingresoPermitido) {

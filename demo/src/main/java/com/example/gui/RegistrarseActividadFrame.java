@@ -32,7 +32,7 @@ public class RegistrarseActividadFrame extends JFrame{
 
     private void configurarVentana() {
         setTitle("Registro Actividad");
-        setSize(400, 300);
+        setSize(450, 300);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null); // Centra pantallas
     }
@@ -85,24 +85,34 @@ public class RegistrarseActividadFrame extends JFrame{
         administradorActividadFrame.setVisible(true);
     }
 
-    private void guardarActividad(){
-        String nombre = txtNombre.getText().trim();
-        int cupos = Integer.parseInt(txtCupo.getText().trim());
-        String fechaInicio = txtFechaInicio.getText().trim();
-        String seleccion = (String) cmbDisponible.getSelectedItem();
-        boolean disponible = seleccion.equals("Sí");
-        final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaFun = LocalDate.parse(fechaInicio,FORMATTER);
-        
-        if (nombre.isEmpty() || txtCupo.getText().isEmpty()  || fechaInicio.isEmpty()  ){
-            JOptionPane.showMessageDialog(this, "Complete todos los campos","Error",JOptionPane.ERROR_MESSAGE);
+    private void guardarActividad() {
+        if (txtNombre.getText().trim().isEmpty() || txtCupo.getText().trim().isEmpty() || txtFechaInicio.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Complete todos los campos", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        Actividad actividad = new Actividad(0,nombre, cupos, disponible, fechaFun);
-        ActividadServicioImpl servicioImpl = new ActividadServicioImpl();
-        servicioImpl.guardarActividad(actividad, Main.listaActividad);
-        JOptionPane.showMessageDialog(this, "Actividad guardado correctamente");
-        limpiarFormulario();
+
+        try {
+            String nombre = txtNombre.getText().trim();
+            int cupos = Integer.parseInt(txtCupo.getText().trim());
+            String fechaInicio = txtFechaInicio.getText().trim();
+            String seleccion = (String) cmbDisponible.getSelectedItem();
+            boolean disponible = seleccion.equals("Sí");
+            
+            final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fechaFun = LocalDate.parse(fechaInicio, FORMATTER);
+            
+            Actividad actividad = new Actividad(0, nombre, cupos, disponible, fechaFun);
+            ActividadServicioImpl servicioImpl = new ActividadServicioImpl();
+            servicioImpl.guardarActividad(actividad, Main.listaActividad);
+            
+            JOptionPane.showMessageDialog(this, "Actividad guardada correctamente");
+            limpiarFormulario();
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "El campo cupos debe ser un número entero válido", "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "La fecha ingresada no es válida (Formato requerido: dd/MM/yyyy)", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void limpiarFormulario(){

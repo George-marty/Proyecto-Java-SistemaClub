@@ -34,7 +34,7 @@ public class RegistrarInscripcionFrame extends JFrame {
 
     private void configurarVentana() {
         setTitle("Registrar Inscripcion");
-        setSize(400, 300);
+        setSize(450, 300);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null); // Centra pantallas
     }
@@ -44,7 +44,7 @@ public class RegistrarInscripcionFrame extends JFrame {
     }
     private void formularioInscripcion(){
         JPanel panelPrincipal = new JPanel(new BorderLayout());
-        JPanel panelFormulario = new JPanel(new GridLayout(6, 2, 20, 15));
+        JPanel panelFormulario = new JPanel(new GridLayout(5, 2, 10, 10));
 
         panelFormulario.add(new JLabel("ID Club", SwingConstants.CENTER));
         cmbIdClub = new JComboBox<>();
@@ -118,10 +118,9 @@ public class RegistrarInscripcionFrame extends JFrame {
 
     private void limpiarFormulario() {
         txtPrecio.setText("");
-        if (cmbIdClub.getItemCount() > 0)
-            cmbIdClub.setSelectedIndex(0);
-        if (cmbIdActividad.getItemCount() > 0)
-            cmbIdActividad.setSelectedIndex(0);
+        cmbIdClub.setSelectedIndex(0);
+        cmbIdActividad.setSelectedIndex(0);
+    
     }
 
     private void volver() {

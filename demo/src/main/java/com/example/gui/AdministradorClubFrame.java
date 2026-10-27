@@ -75,6 +75,7 @@ public class AdministradorClubFrame extends JFrame{
         ventanaPrincipal.setVisible(true); 
     }
     private void borrar(){
+        this.dispose();
         BorrarClubFrame borrarClubFrame = new BorrarClubFrame();
         borrarClubFrame.setVisible(true);
     }

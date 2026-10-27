@@ -28,7 +28,7 @@ public class BorrarActividadFrame extends  JFrame{
 
     private void configurarVentana() {
         setTitle("Borrar Actividad");
-        setSize(400, 200);
+        setSize(450, 200);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
     }
@@ -48,8 +48,9 @@ public class BorrarActividadFrame extends  JFrame{
         btnVolver = new JButton("Volver");
         
         JPanel panelBotones = new JPanel();
-        panelBotones.add(btnVolver);
         panelBotones.add(btnBorrar);
+        panelBotones.add(btnVolver);
+        
 
         panelPrincipal.add(panelFormulario, BorderLayout.CENTER);
         panelPrincipal.add(panelBotones, BorderLayout.SOUTH);
@@ -81,7 +82,15 @@ public class BorrarActividadFrame extends  JFrame{
                     } else {
                         javax.swing.JOptionPane.showMessageDialog(this, "No se pudo borrar el cliente. Verifique el ID.");
                         }
-                } catch (Exception e) {
+                } catch (java.sql.SQLIntegrityConstraintViolationException e) {
+                JOptionPane.showMessageDialog(this,
+                        "No se puede borrar esta Actividad porque tiene inscripciones asociadas.\nElimine las inscripciones primero.",
+                        "Error de integridad",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+                
+                
+                catch (Exception e) {
                 
                     JOptionPane.showMessageDialog(this, "Ocurrió un error al intentar borrar la Actividad");
                     e.printStackTrace();

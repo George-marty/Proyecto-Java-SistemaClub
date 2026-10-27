@@ -51,23 +51,20 @@ public class ActividadDAO {
         }
     }
 
-    public static boolean borrarActividad(int id){
+    public static boolean borrarActividad(int id) throws java.sql.SQLException{
         String sql = "DELETE FROM actividad WHERE idActividad = ?";
         try (var conexion = new ConectarBase().conectar();
         var preparedStatement = conexion.prepareStatement(sql)){
             preparedStatement.setInt(1, id);
             int affectedRows = preparedStatement.executeUpdate();
             return  affectedRows > 0;
-        } catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
+        } 
     }
+    
 
     public ArrayList<Actividad> obtenerActividad(){
         ArrayList<Actividad> listaActividad = new ArrayList<>();
         String sql = "SELECT * FROM actividad";
-        
         try (var conexion = new ConectarBase().conectar();
         var statement = conexion.createStatement();
         var resultSet = statement.executeQuery(sql)){

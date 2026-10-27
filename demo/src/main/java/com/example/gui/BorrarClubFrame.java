@@ -28,7 +28,7 @@ public class BorrarClubFrame extends JFrame {
 
     private void configurarVentana() {
         setTitle("Borrar Cliente");
-        setSize(400, 200);
+        setSize(450, 200);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
     }
@@ -112,5 +112,7 @@ public class BorrarClubFrame extends JFrame {
 
     private void volverClub() {
         this.dispose();
+        AdministradorClubFrame administradorClubFrame = new AdministradorClubFrame();
+        administradorClubFrame.setVisible(true);
     }
 }

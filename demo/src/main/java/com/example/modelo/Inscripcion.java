@@ -44,8 +44,7 @@ public class Inscripcion{
     }
     @Override
     public String toString() {
-        return "Inscripcion [idInscripcion=" + idInscripcion + ", club=" + club + ", Actividad=" + Actividad
-                + ", precios=" + precios + "]";
+        return this.idInscripcion+"-"+this.club.getNombre()+"-"+this.Actividad.getNombre();
     }
 
     

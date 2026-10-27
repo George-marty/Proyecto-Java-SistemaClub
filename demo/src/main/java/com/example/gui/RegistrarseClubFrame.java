@@ -15,6 +15,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class RegistrarseClubFrame extends JFrame {
     private JTextField txtNombre;
@@ -31,7 +32,7 @@ public class RegistrarseClubFrame extends JFrame {
 
     private void configurarVentana() {
         setTitle("Club");
-        setSize(400, 300);
+        setSize(450, 300);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null); // Centra pantallas
     }
@@ -62,6 +63,7 @@ public class RegistrarseClubFrame extends JFrame {
 
         btnVolver = new JButton("Volver");
         btnGuardar = new JButton("Guardar");
+        panelFormulario.add(new JLabel("Cruz Martin", SwingConstants.HORIZONTAL));
 
         JPanel panelBotones = new JPanel();
         panelBotones.add(btnGuardar);
@@ -93,26 +95,29 @@ public class RegistrarseClubFrame extends JFrame {
         }
         try {
             String nombre = txtNombre.getText().trim();
-            int socios = Integer.parseInt(txtSocios.getText().trim());
+            String sociosTexto = txtSocios.getText().trim();
             String fechaFundacion = txtFechaFundacion.getText().trim();
             String seleccion = (String) cmbActivo.getSelectedItem();
-            boolean activo = seleccion.equals("Activo");
-            final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate fechaFun = LocalDate.parse(fechaFundacion, FORMATTER);
-
-            Club club = new Club(0, nombre, socios, activo, fechaFun);
 
             ClubServicioImpl servicios = new ClubServicioImpl();
+            servicios.validarClub(nombre, sociosTexto); // 1. validar texto crudo
+
+            int socios = Integer.parseInt(sociosTexto); // 2. recién ahora convertir
+            boolean activo = seleccion.equals("Activo");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate fechaFun = LocalDate.parse(fechaFundacion, formatter);
+
+            Club club = new Club(0, nombre, socios, activo, fechaFun);
             servicios.guardarClub(club, Main.listaClub);
 
             JOptionPane.showMessageDialog(this, "Club guardado correctamente");
             limpiarFormulario();
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El campo socios debe ser un número entero válido", "Error",
-                    JOptionPane.ERROR_MESSAGE);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "La fecha ingresada no es válida (Formato requerido: dd/MM/yyyy)",
+        } catch (IllegalArgumentException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (DateTimeParseException e) {
+            JOptionPane.showMessageDialog(this,
+                    "La fecha ingresada no es válida (Formato requerido: dd/MM/yyyy)",
                     "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
